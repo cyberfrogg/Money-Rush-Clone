@@ -1,3 +1,4 @@
+using Core.Pickupable;
 using UnityEngine;
 
 namespace Core.Coins

@@ -1,4 +1,5 @@
 using Core.Input;
+using Core.Pickupable;
 using Core.Rails;
 using System;
 using System.Linq;
@@ -12,15 +13,18 @@ namespace Core.PlayerMoneyWad
 
         [SerializeField] private AutoMover _autoMover;
         [SerializeField] private float _speed = 1f;
+        [SerializeField] private float _pickupRadius = 3f;
         [SerializeField] private float _finishThreshold = 0.1f;
 
         private LevelRails _rails;
         private IInput _input;
+        private Pickupables _pickupables;
 
-        public void Install(LevelRails rails, IInput input)
+        public void Install(LevelRails rails, IInput input, Pickupables pickuables)
         {
             _rails = rails;
             _input = input;
+            _pickupables = pickuables;
             configureAutoMover();
         }
         public void StartMovement()
@@ -37,6 +41,12 @@ namespace Core.PlayerMoneyWad
         }
         private void Update()
         {
+            CoinPickupable pickupedCoin;
+            if (_pickupables.GetInRaduis(transform.position, _pickupRadius, out pickupedCoin))
+            {
+                pickupedCoin.Pickup();
+            }
+
             checkFinish();
 
             if (!_input.Pressed)

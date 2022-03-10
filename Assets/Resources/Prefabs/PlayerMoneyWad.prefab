@@ -210,7 +210,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _autoMover: {fileID: 3660433753351394790}
   _speed: 5
-  _finishDistanceThreshold: 0.2
+  _pickupRadius: 3
+  _finishThreshold: 0.1
 --- !u!1 &5444741563442333646
 GameObject:
   m_ObjectHideFlags: 0
