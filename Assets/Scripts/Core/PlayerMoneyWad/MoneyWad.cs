@@ -12,7 +12,7 @@ namespace Core.PlayerMoneyWad
 
         [SerializeField] private AutoMover _autoMover;
         [SerializeField] private float _speed = 1f;
-        [SerializeField, Range(0, 1f)] private float _finishDistanceThreshold;
+        [SerializeField] private float _finishThreshold = 0.1f;
 
         private LevelRails _rails;
         private IInput _input;
@@ -31,6 +31,7 @@ namespace Core.PlayerMoneyWad
         private void configureAutoMover()
         {
             _rails.ApplyAnchorPoints(_autoMover);
+            _autoMover.StopAfter = 1;
             _autoMover.RunOnStart = false;
             _autoMover.Length = getTotalDistanceOfRails() / _speed;
         }
@@ -42,17 +43,26 @@ namespace Core.PlayerMoneyWad
                 return;
 
             Touched?.Invoke();
+        }
+        private void LateUpdate()
+        {
+            checkFinish();
 
             transform.position = new Vector3(
-                0,
+                getXPosition(),
                 transform.position.y,
                 transform.position.z
                 );
         }
+        private float getXPosition()
+        {
+            float halfWidth = _rails.Width / 2;
+            float targetPosition = _input.XPosition * _rails.Width - halfWidth;
+            return Mathf.Clamp(targetPosition, -halfWidth, halfWidth);
+        }
         private void checkFinish()
         {
-            float distanceToFinish = Vector3.Distance(transform.position, _autoMover.Pos.Last());
-            if (distanceToFinish <= _finishDistanceThreshold)
+            if (transform.position.z + _finishThreshold >= _autoMover.Pos.Last().z)
             {
                 _autoMover.StopMoving();
                 transform.position = _autoMover.Pos.Last();

@@ -11,7 +11,9 @@ namespace Core.Input
         {
             get
             {
-                return 0;
+                float touchPos = UnityEngine.Input.mousePosition.x;
+                float x = touchPos / Screen.width;
+                return x;
             }
         }
     }

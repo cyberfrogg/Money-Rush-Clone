@@ -747,6 +747,7 @@ MonoBehaviour:
   _anchors:
   - {fileID: 1106442369}
   - {fileID: 1805963830}
+  _width: 4
 --- !u!1001 &1315877956
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -920,7 +921,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1717116629
 RectTransform:
   m_ObjectHideFlags: 0
