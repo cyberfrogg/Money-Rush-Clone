@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Core.Coins;
+using UnityEngine;
 
 namespace Core.Pickupable
 {
@@ -6,6 +7,9 @@ namespace Core.Pickupable
     {
         public bool IsPickedUp { get => _isPickedUp; }
 
+        [SerializeField] private Coin _coinPrefab;
+
+        private CoinFactory _coinFactory;
         private Pickupables _pickupables;
         private bool _isPickedUp;
 
@@ -15,9 +19,15 @@ namespace Core.Pickupable
             Destroy(gameObject);
             _pickupables.Unregister(this);
         }
+        public Coin GetCoin()
+        {
+            return _coinFactory.Create();
+        }
 
         private void Awake()
         {
+            _coinFactory = new CoinFactory(_coinPrefab);
+
             _pickupables = FindObjectOfType<Pickupables>();
             _pickupables.Register(this);
         }

@@ -1,3 +1,4 @@
+using Core.Coins;
 using Core.Input;
 using Core.Pickupable;
 using Core.Rails;
@@ -12,6 +13,8 @@ namespace Core.PlayerMoneyWad
         public event Action Touched;
 
         [SerializeField] private AutoMover _autoMover;
+        [SerializeField] private CoinsContainer _coinsContainer;
+        [Space]
         [SerializeField] private float _speed = 1f;
         [SerializeField] private float _pickupRadius = 3f;
         [SerializeField] private float _finishThreshold = 0.1f;
@@ -25,6 +28,7 @@ namespace Core.PlayerMoneyWad
             _rails = rails;
             _input = input;
             _pickupables = pickuables;
+            _coinsContainer.Install(transform);
             configureAutoMover();
         }
         public void StartMovement()
@@ -45,6 +49,8 @@ namespace Core.PlayerMoneyWad
             if (_pickupables.GetInRaduis(transform.position, _pickupRadius, out pickupedCoin))
             {
                 pickupedCoin.Pickup();
+                Coin coin = pickupedCoin.GetCoin();
+                _coinsContainer.AddCoin(coin);
             }
 
             checkFinish();
