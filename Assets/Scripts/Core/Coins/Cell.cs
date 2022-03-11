@@ -9,7 +9,7 @@ namespace Core.Coins
 
         private Coin _busyCoin;
 
-        public void Install()
+        public void Initialize()
         {
             if (transform.childCount == 0)
                 return;

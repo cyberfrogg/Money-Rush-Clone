@@ -23,12 +23,12 @@ namespace Core.PlayerMoneyWad
         private IInput _input;
         private Pickupables _pickupables;
 
-        public void Install(LevelRails rails, IInput input, Pickupables pickuables)
+        public void Initialize(LevelRails rails, IInput input, Pickupables pickuables)
         {
             _rails = rails;
             _input = input;
             _pickupables = pickuables;
-            _coinsContainer.Install(transform);
+            _coinsContainer.Initialize(transform);
             configureAutoMover();
         }
         public void StartMovement()
@@ -52,6 +52,8 @@ namespace Core.PlayerMoneyWad
                 Coin coin = pickupedCoin.GetCoin();
                 _coinsContainer.AddCoin(coin);
             }
+
+            _coinsContainer.UpdateRows((transform.localPosition.x / _rails.Width) * 2);
 
             checkFinish();
 

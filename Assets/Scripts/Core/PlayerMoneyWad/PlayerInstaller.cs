@@ -17,7 +17,7 @@ namespace Core.PlayerMoneyWad
             MoneyWad instance = Instantiate(_prefab);
             instance.transform.position = Vector3.zero;
 
-            instance.Install(_rails, _input, _pickupables);
+            instance.Initialize(_rails, _input, _pickupables);
 
             return instance;
         }
