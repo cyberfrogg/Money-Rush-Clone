@@ -11,6 +11,7 @@ namespace Core.Pickupable
         [SerializeField] private float _positionLerp = 10f;
         [SerializeField] private float _rotationLerp = 10f;
         [SerializeField] private float _destroyTime = 0.25f;
+        [SerializeField] private AudioSource _pickSourcePrefab;
 
         private CoinFactory _coinFactory;
         private Pickupables _pickupables;
@@ -27,6 +28,7 @@ namespace Core.Pickupable
         {
             _isPickedUp = true;
             Destroy(gameObject, _destroyTime);
+            playSound();
             _pickupables.Unregister(this);
             _followOrigin = origin;
         }
@@ -49,6 +51,12 @@ namespace Core.Pickupable
 
             transform.position = Vector3.Lerp(transform.position, _followOrigin.position, _positionLerp * Time.deltaTime);
             transform.rotation = Quaternion.Lerp(transform.rotation, _followOrigin.rotation, _rotationLerp * Time.deltaTime);
+        }
+        private void playSound()
+        {
+            AudioSource s = Instantiate(_pickSourcePrefab);
+            s.Play();
+            Destroy(s.gameObject, 5);
         }
     }
 }

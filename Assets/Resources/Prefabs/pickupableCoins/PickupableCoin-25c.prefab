@@ -48,6 +48,7 @@ MonoBehaviour:
   _positionLerp: 10
   _rotationLerp: 10
   _destroyTime: 0.25
+  _pickSourcePrefab: {fileID: 5056837481324096774, guid: e1290dec2a8a8744787a345b4ea5e8a0, type: 3}
 --- !u!1001 &2732790553381303928
 PrefabInstance:
   m_ObjectHideFlags: 0
