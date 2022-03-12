@@ -73,6 +73,12 @@ namespace Core.Enviroment.Coins
         {
             if (newTotalCoins < 0)
             {
+                foreach (Cell cell in _cells.Where(x => x.IsBusy == true))
+                {
+                    Coin detachedCoin = cell.Detach();
+                    detachedCoin.Destroy();
+                }
+
                 CoinsEmptied?.Invoke();
                 return false;
             }

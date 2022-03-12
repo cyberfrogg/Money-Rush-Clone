@@ -17,10 +17,12 @@ namespace Core
         public void Start()
         {
             _playerMoneyWad.StartMovement();
+            _playerMoneyWad.CoinsEmptied += onCoinsEmptied;
         }
         public void Stop()
         {
             _playerMoneyWad.StopMovement();
+            _playerMoneyWad.CoinsEmptied -= onCoinsEmptied;
         }
 
         private void onPlayerTouch()
@@ -30,6 +32,10 @@ namespace Core
 
             _onceTouched = true;
             Start();
+        }
+        private void onCoinsEmptied()
+        {
+            Stop();
         }
     }
 }

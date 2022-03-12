@@ -10,6 +10,7 @@ namespace Core.PlayerMoneyWad
 {
     public class MoneyWad : MonoBehaviour
     {
+        public event Action CoinsEmptied;
         public event Action Touched;
 
         [SerializeField] private AutoMover _autoMover;
@@ -22,6 +23,7 @@ namespace Core.PlayerMoneyWad
         private IInput _input;
         private Pickupables _pickupables;
         private bool _isStopped = true;
+        private Vector3 _stopPosition;
 
         public void Initialize(LevelRails rails, IInput input, Pickupables pickuables)
         {
@@ -30,6 +32,7 @@ namespace Core.PlayerMoneyWad
             _pickupables = pickuables;
             _coinsContainer.Initialize(transform, _rails.Width, _pickupables);
             configureAutoMover();
+            _coinsContainer.CoinsEmptied += onCoinsEmptied;
         }
         public void StartMovement()
         {
@@ -42,17 +45,6 @@ namespace Core.PlayerMoneyWad
             _isStopped = true;
         }
 
-        private void onCoinsEmptied()
-        {
-
-        }
-        private void configureAutoMover()
-        {
-            _rails.ApplyAnchorPoints(_autoMover);
-            _autoMover.StopAfter = 1;
-            _autoMover.RunOnStart = false;
-            _autoMover.Length = getTotalDistanceOfRails() / _speed;
-        }
         private void Update()
         {
             _coinsContainer.UpdateRows((transform.localPosition.x / _rails.Width) * 2);
@@ -67,6 +59,9 @@ namespace Core.PlayerMoneyWad
         private void LateUpdate()
         {
             if (_isStopped)
+                transform.position = _stopPosition;
+
+            if (_isStopped)
                 return;
 
             checkFinish();
@@ -76,6 +71,18 @@ namespace Core.PlayerMoneyWad
                 transform.position.y,
                 transform.position.z
                 );
+            _stopPosition = transform.position;
+        }
+        private void configureAutoMover()
+        {
+            _rails.ApplyAnchorPoints(_autoMover);
+            _autoMover.StopAfter = 1;
+            _autoMover.RunOnStart = false;
+            _autoMover.Length = getTotalDistanceOfRails() / _speed;
+        }
+        private void onCoinsEmptied()
+        {
+            CoinsEmptied?.Invoke();
         }
         private float getXPosition()
         {
@@ -103,6 +110,10 @@ namespace Core.PlayerMoneyWad
             }
 
             return totalDistance;
+        }
+        private void OnDestroy()
+        {
+            _coinsContainer.CoinsEmptied -= onCoinsEmptied;
         }
     }
 }

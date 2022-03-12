@@ -48,7 +48,7 @@ MonoBehaviour:
   _price: {fileID: 11400000, guid: 44713c927a474684eb2b052df5e78b4d, type: 2}
   _model: {fileID: 8801409236443175343}
   _modelSpinSpeed: 250
-  _pickupRadius: 2
+  _pickupRadius: 1
   _destroyParticlesPrefab: {fileID: 2283376097094327883, guid: f997d67133d795c489f7ffb56b80dce4, type: 3}
 --- !u!65 &4278344883153911225
 BoxCollider:
