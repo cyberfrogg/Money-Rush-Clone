@@ -184,19 +184,27 @@ MonoBehaviour:
   - {fileID: 5053927936847565969}
   - {fileID: 6817384289095037618}
   - {fileID: 7110863987156492244}
-  _rowsGap: 0.25
   _movementCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: -1
       value: 0.25
-      inSlope: 0.75
-      outSlope: 0.75
+      inSlope: 1.0714285
+      outSlope: 1.0714285
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
+    - serializedVersion: 3
+      time: -0.3
+      value: 1
+      inSlope: 0.000018968345
+      outSlope: 0.000018968345
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 1
     - serializedVersion: 3
       time: 0
       value: 1
@@ -207,10 +215,19 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
+      time: 0.3
+      value: 1
+      inSlope: -0.000018440618
+      outSlope: -0.000018440618
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0.33333334
+    - serializedVersion: 3
       time: 1
       value: 0.25
-      inSlope: -0.75
-      outSlope: -0.75
+      inSlope: -1.0714285
+      outSlope: -1.0714285
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -218,6 +235,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _cornerGap: -2.65
 --- !u!1 &3660433753351394795
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,8 +350,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5444741563442333646}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.01640714, y: -0.000000012843635, z: 0.0000000020781918, w: 0.9998655}
+  m_LocalPosition: {x: 1.9999982, y: 13.33872, z: 74.646866}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3775286633667400776}
@@ -448,7 +466,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8761815851410451345}
-  m_LocalRotation: {x: 0.088297226, y: 0.000000017139177, z: -0.0000000015192757, w: 0.99609417}
+  m_LocalRotation: {x: 0.08829721, y: 0.000000011676068, z: -0.0000000010350064, w: 0.9960942}
   m_LocalPosition: {x: 0, y: 3.86, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

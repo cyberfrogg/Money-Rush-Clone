@@ -8,15 +8,16 @@ namespace Core.Coins
     public class CoinsContainer : MonoBehaviour
     {
         [SerializeField] private Cell[] _cells;
-        [SerializeField] private float _rowsGap = 0.25f;
         [SerializeField] private AnimationCurve _movementCurve;
 
         private IReadOnlyCollection<Row> _rows;
         private Transform _origin;
+        private float _railsWidth;
 
-        public void Initialize(Transform origin)
+        public void Initialize(Transform origin, float railsWidth)
         {
             _origin = origin;
+            _railsWidth = railsWidth;
             _rows = getRows();
         }
         public void AddCoin(Coin coin)
@@ -48,7 +49,7 @@ namespace Core.Coins
             foreach (float pos in xPositions)
             {
                 IEnumerable<Cell> rowCells = cellRows.Where(x => x.transform.localPosition.x == pos);
-                rows.Add(new Row(rowCells, pos, _rowsGap, _movementCurve));
+                rows.Add(new Row(rowCells, pos, _movementCurve, _railsWidth));
             }
 
             return rows.AsReadOnly();
@@ -59,15 +60,16 @@ namespace Core.Coins
     {
         private Cell[] _cells;
         private float _xPosition;
-        private float _gap;
         private AnimationCurve _movementCruve;
+        private float _cornerGap;
+        private float _railsWidth;
 
-        public Row(IEnumerable<Cell> cells, float xPosition, float gap, AnimationCurve movementCurve)
+        public Row(IEnumerable<Cell> cells, float xPosition, AnimationCurve movementCurve, float railsWidth)
         {
             _cells = cells.ToArray();
             _xPosition = xPosition;
-            _gap = gap;
             _movementCruve = movementCurve;
+            _railsWidth = railsWidth;
         }
         public void Update(float normalizedCenterXPosition)
         {
@@ -79,8 +81,11 @@ namespace Core.Coins
         private void moveCell(Cell cell, float normalizedCenterXPosition)
         {
             float inverted = _movementCruve.Evaluate(normalizedCenterXPosition);
-
-            cell.transform.localPosition = new Vector3(_xPosition * inverted, cell.transform.localPosition.y, cell.transform.localPosition.z);
+            cell.transform.localPosition = new Vector3(
+                _xPosition * inverted,
+                cell.transform.localPosition.y,
+                cell.transform.localPosition.z
+                );
         }
     }
 }

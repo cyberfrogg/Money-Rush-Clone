@@ -28,7 +28,7 @@ namespace Core.PlayerMoneyWad
             _rails = rails;
             _input = input;
             _pickupables = pickuables;
-            _coinsContainer.Initialize(transform);
+            _coinsContainer.Initialize(transform, _rails.Width);
             configureAutoMover();
         }
         public void StartMovement()
@@ -48,7 +48,7 @@ namespace Core.PlayerMoneyWad
             CoinPickupable pickupedCoin;
             if (_pickupables.GetInRaduis(transform.position, _pickupRadius, out pickupedCoin))
             {
-                pickupedCoin.Pickup();
+                pickupedCoin.Pickup(transform.position);
                 Coin coin = pickupedCoin.GetCoin();
                 _coinsContainer.AddCoin(coin);
             }

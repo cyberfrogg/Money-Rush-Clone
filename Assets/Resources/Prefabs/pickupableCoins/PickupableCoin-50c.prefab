@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _coinPrefab: {fileID: 5160612703229915018, guid: 5f45c2fa63ed6ec44b00310e89c273b5, type: 3}
+  _positionLerp: 10
+  _destroyTime: 0.05
 --- !u!1001 &5266148493173872718
 PrefabInstance:
   m_ObjectHideFlags: 0
