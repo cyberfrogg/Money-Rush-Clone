@@ -93,6 +93,12 @@ namespace Core.Enviroment.Coins
                 detachedCoin.Destroy();
             }
 
+            if (_cells.Where(x => x.IsBusy).Count() == 0)
+            {
+                CoinsEmptied?.Invoke();
+                return false;
+            }
+
             return true;
         }
         public void UpdateRows(float normalizedCenterXPosition)
