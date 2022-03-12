@@ -5,6 +5,8 @@ namespace Core.Enviroment.FinishScoreCounting
 {
     public class Row : MonoBehaviour
     {
+        public int ScoreNumber { get => _scoreNumber; }
+        public bool Selected { get => _selected; }
         public float Length { get => _length; }
 
         [SerializeField] private float _length = 2;

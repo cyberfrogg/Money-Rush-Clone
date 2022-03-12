@@ -31,5 +31,9 @@ namespace Core.UI.ScreenSystem
                     screen.Toggle(value);
             }
         }
+        public Screen GetScreen(ScreenType type)
+        {
+            return _screens.Where(x => x.Type == type).FirstOrDefault();
+        }
     }
 }

@@ -1,5 +1,6 @@
 using Core.Enviroment.Coins;
 using Core.PlayerMoneyWad;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace Core.Enviroment.FinishScoreCounting
 {
     public class ScoreCounter : MonoBehaviour
     {
+        public event Action<int> ScoreCountingDone;
+
         [SerializeField] private Row _rowPrefab;
         [SerializeField] private int _rowsCount = 100;
         [SerializeField] private float _yOffset = 0.5f;
@@ -17,6 +20,7 @@ namespace Core.Enviroment.FinishScoreCounting
         [SerializeField] private Vector3 _cameraPosition;
 
         private MoneyWad _playerMoneyWad;
+        private IReadOnlyCollection<Row> _rows;
 
         public void CountScore(MoneyWad wad)
         {
@@ -52,6 +56,7 @@ namespace Core.Enviroment.FinishScoreCounting
                 if (coins.First().transform.position.z > transform.position.z)
                 {
                     isAnimationPlaying = false;
+                    ScoreCountingDone?.Invoke(_rows.Where(x => x.Selected).OrderBy(x => x.transform.position.z).Last().ScoreNumber);
                 }
             }
         }
@@ -59,7 +64,7 @@ namespace Core.Enviroment.FinishScoreCounting
         private void spawnRows(Coin firstCoin)
         {
             RowFactory factory = new RowFactory(_rowPrefab, transform, firstCoin, _rowsCount);
-            factory.Create();
+            _rows = factory.Create();
         }
     }
 }

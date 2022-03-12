@@ -26,6 +26,7 @@ namespace Core
             _playerMoneyWad.StartMovement();
             _playerMoneyWad.CoinsEmptied += onCoinsEmptied;
             _playerMoneyWad.Finished += onPlayerFinished;
+            _scoreCounter.ScoreCountingDone += onScoreCountingDone;
             _screens.ShowOne(ScreenType.Game);
         }
         public void Stop()
@@ -47,6 +48,13 @@ namespace Core
         {
             _scoreCounter.CountScore(_playerMoneyWad);
             Stop();
+        }
+        private void onScoreCountingDone(int score)
+        {
+            _scoreCounter.ScoreCountingDone -= onScoreCountingDone;
+            _screens.ShowOne(ScreenType.Finish);
+            FinishScreen finishScreen = _screens.GetScreen(ScreenType.Finish) as FinishScreen;
+            finishScreen.SetScore(score);
         }
         private void onCoinsEmptied()
         {
