@@ -204,7 +204,7 @@ public class AutoMover : MonoBehaviour
             }
         }
     }
-    
+
     [SerializeField]
     private AutoMoverRotationMethod rotationMethod = AutoMoverRotationMethod.absoluteValue;
     /// <summary>
@@ -268,7 +268,7 @@ public class AutoMover : MonoBehaviour
                             rot[i] = (Quaternion.Inverse(transform.parent.rotation) * Quaternion.Euler(rot[i])).eulerAngles;
                         }
                     }
-                    
+
                     if (moved)
                         StartMoving();
                 }
@@ -291,7 +291,7 @@ public class AutoMover : MonoBehaviour
     }
 
     [SerializeField]
-    private AutoMoverNoiseType positionNoiseType = AutoMoverNoiseType.random; 
+    private AutoMoverNoiseType positionNoiseType = AutoMoverNoiseType.random;
     /// <summary>
     /// Specifies the type of the position noise.
     /// </summary>
@@ -308,7 +308,7 @@ public class AutoMover : MonoBehaviour
     }
 
     [SerializeField]
-    private AutoMoverNoiseType rotationNoiseType = AutoMoverNoiseType.random; 
+    private AutoMoverNoiseType rotationNoiseType = AutoMoverNoiseType.random;
     /// <summary>
     /// Specifies the type of the rotation noise.
     /// </summary>
@@ -461,7 +461,7 @@ public class AutoMover : MonoBehaviour
             positionSineOffset = value;
         }
     }
-    
+
     [SerializeField]
     private bool runOnStart = true;
     /// <summary>
@@ -589,14 +589,14 @@ public class AutoMover : MonoBehaviour
     private Vector3 origLocalRot;
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         if (runOnStart)
             StartMoving();
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
     }
 
@@ -617,7 +617,7 @@ public class AutoMover : MonoBehaviour
             pos.Add(new Vector3(0, 0, 0));
 
         rot.Add(transform.rotation.eulerAngles);
-        
+
         if (moving && precomputePath)
         {
             StopMoving();
@@ -991,7 +991,7 @@ public class AutoMover : MonoBehaviour
         if (rot == null)
             rot = new List<Vector3>();
 
-        if (index >= 0 && index < pos.Count-1)
+        if (index >= 0 && index < pos.Count - 1)
         {
             bool moved = false;
             if (moving && precomputePath)
@@ -1098,10 +1098,10 @@ public class AutoMover : MonoBehaviour
     public void StopMoving()
     {
         StopAllCoroutines();
-        
-        transform.localPosition = origLocalPos;
-        transform.localRotation = Quaternion.Euler(origLocalRot);
-        
+
+        //transform.localPosition = origLocalPos;
+        //transform.localRotation = Quaternion.Euler(origLocalRot);
+
         moving = false;
     }
 
@@ -1119,7 +1119,7 @@ public class AutoMover : MonoBehaviour
 
         if (pos == null)
             return;
-        
+
         for (int i = 0; i < pos.Count; ++i)
         {
             if (pos.Count > 1)
@@ -1137,14 +1137,14 @@ public class AutoMover : MonoBehaviour
             }
 
         }
-        
+
         Vector3[] path = PrecomputedPath(pos, null, loopingStyle, AutoMoverRotationMethod.absoluteValue, curveStyle, curveWeight, 100);
-        for (int i = 0; i < path.Length-1; ++i)
+        for (int i = 0; i < path.Length - 1; ++i)
         {
-                if (pos.Count > 1)
-                    Gizmos.color = startColor * (1 - (i / (path.Length - 1))) + endColor * i / (path.Length - 1);
-                else
-                    Gizmos.color = startColor;
+            if (pos.Count > 1)
+                Gizmos.color = startColor * (1 - (i / (path.Length - 1))) + endColor * i / (path.Length - 1);
+            else
+                Gizmos.color = startColor;
 
             if (anchorPointSpace == AutoMoverAnchorPointSpace.local)
             {
@@ -1156,7 +1156,7 @@ public class AutoMover : MonoBehaviour
             }
         }
     }
-    
+
     private static Vector3 GetRotationDifferenceMagnitude(Vector3 prev, Vector3 current)
     {
         Vector3 diff = current - prev;
@@ -1398,7 +1398,7 @@ public class AutoMover : MonoBehaviour
 
     private Vector3 NewNoise(bool pos, Vector3 current, float startTime = 0)
     {
-        float x = 0 , y = 0, z = 0;
+        float x = 0, y = 0, z = 0;
         bool random = pos ? positionNoiseType == 0 : rotationNoiseType == 0;
         Vector3 maxAmplitude = pos ? positionNoiseAmplitude : rotationNoiseAmplitude;
         Vector3 frequency = pos ? positionNoiseFrequency : rotationNoiseFrequency;
@@ -1407,7 +1407,7 @@ public class AutoMover : MonoBehaviour
         if (random)
         {
             if (!pos)
-            frequency *= 180f;
+                frequency *= 180f;
 
             //possibly generate new target point
             if (pos && current == posNoiseTarget)
@@ -1573,7 +1573,7 @@ public class AutoMover : MonoBehaviour
                             gameObject.transform.localPosition = precompPos[i - 1] * (1 - progress) + precompPos[i] * progress + curveNoise;
                             gameObject.transform.localRotation = Quaternion.Euler(precompRot[i - 1] * (1 - progress) + precompRot[i] * progress + curveNoiseR);
                         }
-                        
+
                         elapsed += Time.deltaTime;
                         speed = precompTotalDist / length;
                         travelled = elapsed * speed;
@@ -2184,7 +2184,7 @@ public class AutoMover : MonoBehaviour
         else if (points.Length > 2)
         {
             List<Vector3> newPoints = new List<Vector3>();
-            for (int i = 0; i < points.Length-1; ++i)
+            for (int i = 0; i < points.Length - 1; ++i)
             {
                 newPoints.Add(points[i] * (1f - t) + points[i + 1] * t);
             }

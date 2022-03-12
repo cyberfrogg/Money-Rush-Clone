@@ -302,6 +302,7 @@ MonoBehaviour:
   _action: 3
   _value: 2
   _gradientObject: {fileID: 5258504801884701688}
+  _textObject: {fileID: 5258504802455144204}
 --- !u!1 &5258504802418700966
 GameObject:
   m_ObjectHideFlags: 0

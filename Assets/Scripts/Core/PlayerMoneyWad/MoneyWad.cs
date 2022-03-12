@@ -1,3 +1,4 @@
+using Cinemachine;
 using Core.Enviroment.Coins;
 using Core.Input;
 using Core.Pickupable;
@@ -13,10 +14,14 @@ namespace Core.PlayerMoneyWad
         public event Action CoinsEmptied;
         public event Action Touched;
         public event Action<float> MoneyCountChanged;
+        public event Action Finished;
+
+        public CoinsContainer CoinsContainer { get => _coinsContainer; }
 
         [SerializeField] private AutoMover _autoMover;
         [SerializeField] private CoinsContainer _coinsContainer;
         [SerializeField] private MoneyWadCountDisplay _countDisplay;
+        [SerializeField] private CinemachineVirtualCamera _cineCamera;
         [Space]
         [SerializeField] private float _speed = 1f;
         [SerializeField] private float _finishThreshold = 0.1f;
@@ -24,8 +29,9 @@ namespace Core.PlayerMoneyWad
         private LevelRails _rails;
         private IInput _input;
         private Pickupables _pickupables;
-        private bool _isStopped = true;
         private Vector3 _stopPosition;
+        private bool _isStopped = true;
+        private bool _isFinished = false;
 
         public void Initialize(LevelRails rails, IInput input, Pickupables pickuables)
         {
@@ -39,7 +45,6 @@ namespace Core.PlayerMoneyWad
             _coinsContainer.Initialize(transform, _rails.Width, _pickupables);
 
             configureAutoMover();
-
         }
         public void StartMovement()
         {
@@ -48,15 +53,26 @@ namespace Core.PlayerMoneyWad
         }
         public void StopMovement()
         {
-            _autoMover.StopMoving();
+            if (_autoMover != null)
+                _autoMover.StopMoving();
+
             _isStopped = true;
+        }
+        public void FollowCamera(Transform target)
+        {
+            _cineCamera.Follow = target;
+            _cineCamera.LookAt = target;
+        }
+        public void FollowCamera(Transform target, Vector3 newPosition)
+        {
+            _cineCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = newPosition;
+            _cineCamera.Follow = target;
+            _cineCamera.LookAt = target;
         }
 
         private void Update()
         {
             _coinsContainer.UpdateRows((transform.localPosition.x / _rails.Width) * 2);
-
-            checkFinish();
 
             if (!_input.Pressed)
                 return;
@@ -71,7 +87,8 @@ namespace Core.PlayerMoneyWad
             if (_isStopped)
                 return;
 
-            checkFinish();
+            if (!_isFinished)
+                checkFinish();
 
             transform.position = new Vector3(
                 getXPosition(),
@@ -107,6 +124,8 @@ namespace Core.PlayerMoneyWad
             {
                 _autoMover.StopMoving();
                 transform.position = _autoMover.Pos.Last();
+                _isFinished = true;
+                Finished?.Invoke();
             }
         }
         private float getTotalDistanceOfRails()

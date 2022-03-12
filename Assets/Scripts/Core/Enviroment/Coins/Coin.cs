@@ -7,7 +7,6 @@ namespace Core.Enviroment.Coins
 {
     public class Coin : MonoBehaviour
     {
-        public event Action<Coin, Coin> OnOtherCoinEntered;
         public CoinsContainer Container { get => _container; }
         public CoinPrice Price { get => _price; }
 
@@ -20,6 +19,7 @@ namespace Core.Enviroment.Coins
 
         private CoinsContainer _container;
         private Pickupables _pickupables;
+        private bool _isSpinning = true;
 
         public void InitializeInContainer(CoinsContainer container, Pickupables pickupables)
         {
@@ -31,11 +31,20 @@ namespace Core.Enviroment.Coins
             Destroy(gameObject);
             createDestroyParticles();
         }
+        public void StopSpinning()
+        {
+            _isSpinning = false;
+        }
 
         private void Update()
         {
-            _model.Rotate(1 * _modelSpinSpeed * Time.deltaTime, 0, 0);
+            if (_isSpinning)
+                _model.Rotate(1 * _modelSpinSpeed * Time.deltaTime, 0, 0);
 
+            pickupCoins();
+        }
+        private void pickupCoins()
+        {
             CoinPickupable pickupedCoin;
             if (_pickupables.GetInRaduis(transform.position, _pickupRadius, out pickupedCoin))
             {

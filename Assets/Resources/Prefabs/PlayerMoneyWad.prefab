@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 3.86, z: -10}
+  m_FollowOffset: {x: 0, y: 3.86, z: -10.84}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -500,6 +500,7 @@ MonoBehaviour:
   _autoMover: {fileID: 3660433753351394790}
   _coinsContainer: {fileID: 870948559539779654}
   _countDisplay: {fileID: 5541364283058596796}
+  _cineCamera: {fileID: 6768383615624782150}
   _speed: 5
   _finishThreshold: 0.1
 --- !u!1 &3985951189933918500
@@ -814,8 +815,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8761815851410451345}
-  m_LocalRotation: {x: 0.08829722, y: -0.000000017139177, z: 0.0000000015192754, w: 0.99609417}
-  m_LocalPosition: {x: 0, y: 3.86, z: -10}
+  m_LocalRotation: {x: 0.07519589, y: -4.3906006e-16, z: 2.2552428e-17, w: 0.99716884}
+  m_LocalPosition: {x: 0, y: 3.86, z: -10.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6138738052299579338}

@@ -112,6 +112,17 @@ namespace Core.Enviroment.Coins
                 _rows.ElementAt(i).Update(normalizedCenterXPosition);
             }
         }
+        public IReadOnlyCollection<Coin> DetachAllCoins()
+        {
+            List<Coin> allCoins = new List<Coin>();
+
+            foreach (Cell cell in _cells.Where(x => x.IsBusy == true))
+            {
+                allCoins.Add(cell.Detach());
+            }
+
+            return allCoins.AsReadOnly();
+        }
 
         private Cell getFirstFreeCell()
         {

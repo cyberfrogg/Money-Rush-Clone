@@ -12,6 +12,7 @@ namespace Core.Enviroment.Multipliers
         [SerializeField] private MultiplierAction _action;
         [SerializeField] private float _value;
         [SerializeField] private GameObject _gradientObject;
+        [SerializeField] private GameObject _textObject;
 
         private Multiplier _multiplier;
 
@@ -34,6 +35,7 @@ namespace Core.Enviroment.Multipliers
                 removeCoins(coin, newTotalCoins);
 
             _gradientObject.SetActive(false);
+            _textObject.SetActive(false);
         }
         private void addCoins(Coin coin, float newTotalCoins)
         {
