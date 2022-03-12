@@ -18,6 +18,10 @@ namespace Core
         {
             _playerMoneyWad.StartMovement();
         }
+        public void Stop()
+        {
+            _playerMoneyWad.StopMovement();
+        }
 
         private void onPlayerTouch()
         {
@@ -25,7 +29,7 @@ namespace Core
                 return;
 
             _onceTouched = true;
-            _playerMoneyWad.StartMovement();
+            Start();
         }
     }
 }

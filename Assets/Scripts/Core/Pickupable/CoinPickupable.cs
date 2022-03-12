@@ -8,13 +8,14 @@ namespace Core.Pickupable
         public bool IsPickedUp { get => _isPickedUp; }
 
         [SerializeField] private Coin _coinPrefab;
-        [SerializeField] private float _positionLerp = 1f;
+        [SerializeField] private float _positionLerp = 10f;
+        [SerializeField] private float _rotationLerp = 10f;
         [SerializeField] private float _destroyTime = 0.25f;
 
         private CoinFactory _coinFactory;
         private Pickupables _pickupables;
         private bool _isPickedUp;
-        private Vector3 _followOrigin;
+        private Transform _followOrigin;
 
         public void Pickup()
         {
@@ -22,7 +23,7 @@ namespace Core.Pickupable
             Destroy(gameObject);
             _pickupables.Unregister(this);
         }
-        public void Pickup(Vector3 origin)
+        public void Pickup(Transform origin)
         {
             _isPickedUp = true;
             Destroy(gameObject, _destroyTime);
@@ -46,7 +47,8 @@ namespace Core.Pickupable
             if (!IsPickedUp)
                 return;
 
-            transform.position = Vector3.Lerp(transform.position, _followOrigin, _positionLerp * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, _followOrigin.position, _positionLerp * Time.deltaTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, _followOrigin.rotation, _rotationLerp * Time.deltaTime);
         }
     }
 }

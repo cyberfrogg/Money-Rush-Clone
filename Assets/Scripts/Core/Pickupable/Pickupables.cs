@@ -23,7 +23,7 @@ namespace Core.Pickupable
                 throw new ArgumentException("Item is not registred");
         }
 
-        public bool GetInRaduis<T>(Vector3 origin, float radius, out T output)
+        public bool GetInRaduis<T>(Vector3 origin, float radius, out T output) where T : IPickupable
         {
             IEnumerable<T> targets = _pickupables.OfType<T>();
             if (targets.Count() == 0)
@@ -32,7 +32,7 @@ namespace Core.Pickupable
                 return false;
             }
 
-            IEnumerable<T> raduisTargets = targets.Where(x => Vector3.Distance((x as MonoBehaviour).transform.position, origin) <= radius);
+            IEnumerable<T> raduisTargets = targets.Where(x => Vector3.Distance((x as MonoBehaviour).transform.position, origin) <= radius && (x as IPickupable).IsPickedUp == false);
             if (raduisTargets.Count() == 0)
             {
                 output = default(T);

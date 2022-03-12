@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5091828750147040447}
   - component: {fileID: 2855549812087657084}
+  - component: {fileID: 8880495368971020469}
   m_Layer: 0
   m_Name: "Coin-25\u0441"
   m_TagString: Untagged
@@ -75,8 +76,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 744ba12230cbf1c42b6b64ff2126a0d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _price: {fileID: 11400000, guid: 4abe4768388ec074b89b180b67b3949c, type: 2}
   _model: {fileID: 1880883502283596889}
   _modelSpinSpeed: 250
+  _pickupRadius: 2
+  _destroyParticlesPrefab: {fileID: 2283376097094327883, guid: f997d67133d795c489f7ffb56b80dce4, type: 3}
+--- !u!65 &8880495368971020469
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5091828750147040444}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.05, y: 0.5, z: 0.5}
+  m_Center: {x: 0, y: -0.25, z: 0}
 --- !u!1001 &5091828750217964277
 PrefabInstance:
   m_ObjectHideFlags: 0

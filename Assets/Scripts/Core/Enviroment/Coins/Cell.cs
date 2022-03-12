@@ -6,6 +6,7 @@ namespace Core.Enviroment.Coins
     public class Cell : MonoBehaviour
     {
         public bool IsBusy { get => _busyCoin != null; }
+        public Coin Coin { get => _busyCoin; }
 
         private Coin _busyCoin;
 
@@ -26,11 +27,13 @@ namespace Core.Enviroment.Coins
             _busyCoin.transform.position = transform.position;
             _busyCoin.transform.SetParent(transform);
         }
-        public void Detach()
+        public Coin Detach()
         {
             _busyCoin.transform.position = transform.position;
             _busyCoin.transform.SetParent(null);
+            Coin returnCoin = _busyCoin;
             _busyCoin = null;
+            return returnCoin;
         }
     }
 }

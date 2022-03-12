@@ -16,26 +16,36 @@ namespace Core.PlayerMoneyWad
         [SerializeField] private CoinsContainer _coinsContainer;
         [Space]
         [SerializeField] private float _speed = 1f;
-        [SerializeField] private float _pickupRadius = 3f;
         [SerializeField] private float _finishThreshold = 0.1f;
 
         private LevelRails _rails;
         private IInput _input;
         private Pickupables _pickupables;
+        private bool _isStopped = true;
 
         public void Initialize(LevelRails rails, IInput input, Pickupables pickuables)
         {
             _rails = rails;
             _input = input;
             _pickupables = pickuables;
-            _coinsContainer.Initialize(transform, _rails.Width);
+            _coinsContainer.Initialize(transform, _rails.Width, _pickupables);
             configureAutoMover();
         }
         public void StartMovement()
         {
             _autoMover.StartMoving();
+            _isStopped = false;
+        }
+        public void StopMovement()
+        {
+            _autoMover.StopMoving();
+            _isStopped = true;
         }
 
+        private void onCoinsEmptied()
+        {
+
+        }
         private void configureAutoMover()
         {
             _rails.ApplyAnchorPoints(_autoMover);
@@ -45,14 +55,6 @@ namespace Core.PlayerMoneyWad
         }
         private void Update()
         {
-            CoinPickupable pickupedCoin;
-            if (_pickupables.GetInRaduis(transform.position, _pickupRadius, out pickupedCoin))
-            {
-                pickupedCoin.Pickup(transform.position);
-                Coin coin = pickupedCoin.GetCoin();
-                _coinsContainer.AddCoin(coin);
-            }
-
             _coinsContainer.UpdateRows((transform.localPosition.x / _rails.Width) * 2);
 
             checkFinish();
@@ -64,6 +66,9 @@ namespace Core.PlayerMoneyWad
         }
         private void LateUpdate()
         {
+            if (_isStopped)
+                return;
+
             checkFinish();
 
             transform.position = new Vector3(

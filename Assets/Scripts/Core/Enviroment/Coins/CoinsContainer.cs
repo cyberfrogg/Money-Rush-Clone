@@ -1,3 +1,4 @@
+using Core.Pickupable;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,23 +8,86 @@ namespace Core.Enviroment.Coins
 {
     public class CoinsContainer : MonoBehaviour
     {
+        public event Action CoinsEmptied;
+        public CoinPrice[] CoinPrices { get => _coinPrices; }
+        public float TotalCoinsSum
+        {
+            get
+            {
+                float r = 0;
+
+                foreach (Cell cell in _cells)
+                {
+                    if (!cell.IsBusy)
+                        continue;
+
+                    r += cell.Coin.Price.Price;
+                }
+
+                return r;
+            }
+        }
+
+        [SerializeField] private CoinPrice[] _coinPrices;
         [SerializeField] private Cell[] _cells;
         [SerializeField] private AnimationCurve _movementCurve;
 
         private IReadOnlyCollection<Row> _rows;
         private Transform _origin;
         private float _railsWidth;
+        private Pickupables _pickupables;
 
-        public void Initialize(Transform origin, float railsWidth)
+        public void Initialize(Transform origin, float railsWidth, Pickupables pickupables)
         {
             _origin = origin;
             _railsWidth = railsWidth;
+            _pickupables = pickupables;
             _rows = getRows();
+            foreach (Cell cell in _cells)
+            {
+                cell.Initialize();
+                if (cell.IsBusy)
+                {
+                    cell.Coin.InitializeInContainer(this, _pickupables);
+                }
+            }
         }
         public void AddCoin(Coin coin)
         {
             Cell nearestCell = getFirstFreeCell();
             nearestCell.Attach(coin);
+            coin.InitializeInContainer(this, _pickupables);
+        }
+        public bool CreateCoin(float price)
+        {
+            IEnumerable<CoinPrice> prices = _coinPrices.Where(x => x.Price == price);
+            if (prices.Count() == 0)
+                return false;
+
+            CoinFactory factory = new CoinFactory(prices.First().Prefab);
+            Coin coin = factory.Create();
+            AddCoin(coin);
+            return true;
+        }
+        public bool TakeCoin(float newTotalCoins)
+        {
+            if (newTotalCoins < 0)
+            {
+                CoinsEmptied?.Invoke();
+                return false;
+            }
+
+            while (TotalCoinsSum > newTotalCoins)
+            {
+                IEnumerable<Cell> avaliableCells = _cells.Where(x => x.IsBusy);
+                if (avaliableCells.Count() == 0)
+                    break;
+
+                Coin detachedCoin = avaliableCells.First().Detach();
+                detachedCoin.Destroy();
+            }
+
+            return true;
         }
         public void UpdateRows(float normalizedCenterXPosition)
         {
