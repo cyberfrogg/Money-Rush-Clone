@@ -20,7 +20,7 @@ namespace Core.UI.ScreenSystem
 
         public void SetScore(int score)
         {
-            _text.text = $"{_prefix}{score}00";
+            _text.text = $"{_prefix}{score + 1}00";
         }
     }
 }
