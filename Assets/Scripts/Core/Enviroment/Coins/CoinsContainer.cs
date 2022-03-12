@@ -35,13 +35,11 @@ namespace Core.Enviroment.Coins
 
         private IReadOnlyCollection<Row> _rows;
         private Transform _origin;
-        private float _railsWidth;
         private Pickupables _pickupables;
 
-        public void Initialize(Transform origin, float railsWidth, Pickupables pickupables)
+        public void Initialize(Transform origin, Pickupables pickupables)
         {
             _origin = origin;
-            _railsWidth = railsWidth;
             _pickupables = pickupables;
             _rows = getRows();
             foreach (Cell cell in _cells)
@@ -140,7 +138,7 @@ namespace Core.Enviroment.Coins
             foreach (float pos in xPositions)
             {
                 IEnumerable<Cell> rowCells = cellRows.Where(x => x.transform.localPosition.x == pos);
-                rows.Add(new Row(rowCells, pos, _movementCurve, _railsWidth));
+                rows.Add(new Row(rowCells, pos, _movementCurve));
             }
 
             return rows.AsReadOnly();

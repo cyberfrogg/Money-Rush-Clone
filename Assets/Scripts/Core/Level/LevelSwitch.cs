@@ -18,5 +18,9 @@ namespace Core.Level
             _currentLevel++;
             SceneManager.LoadScene(_config.GetLevel(_currentLevel));
         }
+        public void RestartLevel()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 }

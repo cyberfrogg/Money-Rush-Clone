@@ -46,7 +46,7 @@ namespace Core.PlayerMoneyWad
             _coinsContainer.CoinsEmptied += onCoinsEmptied;
             _coinsContainer.CountChanged += onMoneyCountChanged;
             _countDisplay.Initialize(this);
-            _coinsContainer.Initialize(transform, _rails.Width, _pickupables);
+            _coinsContainer.Initialize(transform, _pickupables);
 
             configureAutoMover();
         }

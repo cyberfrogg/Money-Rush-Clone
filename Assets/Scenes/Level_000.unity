@@ -1131,10 +1131,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 416224098}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6aa87127958fec94c8bb2f490dea6801, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c6ea6141c8c25e4e88e467a9c5454db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 2
+  _restartButton: {fileID: 286600119}
 --- !u!1 &416892140
 GameObject:
   m_ObjectHideFlags: 0
@@ -1186,7 +1187,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: df3aa55bbbb1b6346baeba41cb4e7da4, type: 2}
+  - {fileID: 2100000, guid: 09e38e4935e906c42ac9bc7c114409b7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2776,6 +2777,7 @@ MonoBehaviour:
   _playerInstaller: {fileID: 1135721609}
   _screensInstaller: {fileID: 1135721610}
   _scoreCounter: {fileID: 899607472}
+  _levelSwitchConfig: {fileID: 11400000, guid: e7e66e0d5fe7bf847aad4595794c746b, type: 2}
 --- !u!114 &1135721609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4229,6 +4231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _type: 3
   _text: {fileID: 1858230205}
+  _nextButton: {fileID: 769083045}
   _prefix: 'Score: '
 --- !u!1001 &2079797188
 PrefabInstance:

@@ -10,15 +10,12 @@ namespace Core.Enviroment.Coins
         private Cell[] _cells;
         private float _xPosition;
         private AnimationCurve _movementCruve;
-        private float _cornerGap;
-        private float _railsWidth;
 
-        public Row(IEnumerable<Cell> cells, float xPosition, AnimationCurve movementCurve, float railsWidth)
+        public Row(IEnumerable<Cell> cells, float xPosition, AnimationCurve movementCurve)
         {
             _cells = cells.ToArray();
             _xPosition = xPosition;
             _movementCruve = movementCurve;
-            _railsWidth = railsWidth;
         }
         public void Update(float normalizedCenterXPosition)
         {
