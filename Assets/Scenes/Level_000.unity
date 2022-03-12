@@ -1919,7 +1919,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Next
+  m_text: Menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 081a95059d9d36544a0722dad5905fef, type: 2}
   m_sharedMaterial: {fileID: -6307086029438436683, guid: 081a95059d9d36544a0722dad5905fef, type: 2}

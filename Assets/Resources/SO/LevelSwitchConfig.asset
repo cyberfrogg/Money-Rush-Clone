@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: LevelSwitchConfig
   m_EditorClassIdentifier: 
   _levels:
-  - Level_000
   - Menu
+  - Level_000
