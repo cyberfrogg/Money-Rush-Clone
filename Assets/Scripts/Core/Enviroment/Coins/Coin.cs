@@ -1,7 +1,7 @@
 using Core.Pickupable;
 using UnityEngine;
 
-namespace Core.Coins
+namespace Core.Enviroment.Coins
 {
     public class Coin : MonoBehaviour
     {

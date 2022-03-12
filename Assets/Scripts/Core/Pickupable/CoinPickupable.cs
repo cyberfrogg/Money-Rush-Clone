@@ -1,4 +1,4 @@
-﻿using Core.Coins;
+﻿using Core.Enviroment.Coins;
 using UnityEngine;
 
 namespace Core.Pickupable

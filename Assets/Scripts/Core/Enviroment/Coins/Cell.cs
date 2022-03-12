@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Core.Coins
+namespace Core.Enviroment.Coins
 {
     public class Cell : MonoBehaviour
     {

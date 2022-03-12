@@ -1,4 +1,4 @@
-using Core.Coins;
+using Core.Enviroment.Coins;
 using Core.Input;
 using Core.Pickupable;
 using Core.Rails;

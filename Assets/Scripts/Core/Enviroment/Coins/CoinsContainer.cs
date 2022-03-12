@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Core.Coins
+namespace Core.Enviroment.Coins
 {
     public class CoinsContainer : MonoBehaviour
     {
