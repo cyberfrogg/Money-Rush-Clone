@@ -26,7 +26,6 @@ namespace Core
         }
         public void Stop()
         {
-            Debug.Log("stopped");
             _playerMoneyWad.StopMovement();
             _playerMoneyWad.CoinsEmptied -= onCoinsEmptied;
         }

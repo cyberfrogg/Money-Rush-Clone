@@ -12,9 +12,11 @@ namespace Core.PlayerMoneyWad
     {
         public event Action CoinsEmptied;
         public event Action Touched;
+        public event Action<float> MoneyCountChanged;
 
         [SerializeField] private AutoMover _autoMover;
         [SerializeField] private CoinsContainer _coinsContainer;
+        [SerializeField] private MoneyWadCountDisplay _countDisplay;
         [Space]
         [SerializeField] private float _speed = 1f;
         [SerializeField] private float _finishThreshold = 0.1f;
@@ -30,9 +32,14 @@ namespace Core.PlayerMoneyWad
             _rails = rails;
             _input = input;
             _pickupables = pickuables;
-            _coinsContainer.Initialize(transform, _rails.Width, _pickupables);
-            configureAutoMover();
+
             _coinsContainer.CoinsEmptied += onCoinsEmptied;
+            _coinsContainer.CountChanged += onMoneyCountChanged;
+            _countDisplay.Initialize(this);
+            _coinsContainer.Initialize(transform, _rails.Width, _pickupables);
+
+            configureAutoMover();
+
         }
         public void StartMovement()
         {
@@ -72,6 +79,10 @@ namespace Core.PlayerMoneyWad
                 transform.position.z
                 );
             _stopPosition = transform.position;
+        }
+        private void onMoneyCountChanged(float value)
+        {
+            MoneyCountChanged?.Invoke(value);
         }
         private void configureAutoMover()
         {
@@ -114,6 +125,7 @@ namespace Core.PlayerMoneyWad
         private void OnDestroy()
         {
             _coinsContainer.CoinsEmptied -= onCoinsEmptied;
+            _coinsContainer.CountChanged -= onMoneyCountChanged;
         }
     }
 }

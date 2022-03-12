@@ -8,6 +8,7 @@ namespace Core.Enviroment.Coins
 {
     public class CoinsContainer : MonoBehaviour
     {
+        public event Action<float> CountChanged;
         public event Action CoinsEmptied;
         public CoinPrice[] CoinPrices { get => _coinPrices; }
         public float TotalCoinsSum
@@ -51,12 +52,14 @@ namespace Core.Enviroment.Coins
                     cell.Coin.InitializeInContainer(this, _pickupables);
                 }
             }
+            CountChanged?.Invoke(TotalCoinsSum);
         }
         public void AddCoin(Coin coin)
         {
             Cell nearestCell = getFirstFreeCell();
             nearestCell.Attach(coin);
             coin.InitializeInContainer(this, _pickupables);
+            CountChanged?.Invoke(TotalCoinsSum);
         }
         public bool CreateCoin(float price)
         {
@@ -76,6 +79,7 @@ namespace Core.Enviroment.Coins
                 foreach (Cell cell in _cells.Where(x => x.IsBusy == true))
                 {
                     Coin detachedCoin = cell.Detach();
+                    CountChanged?.Invoke(TotalCoinsSum);
                     detachedCoin.Destroy();
                 }
 
@@ -90,13 +94,13 @@ namespace Core.Enviroment.Coins
                     break;
 
                 Coin detachedCoin = avaliableCells.First().Detach();
+                CountChanged?.Invoke(TotalCoinsSum);
                 detachedCoin.Destroy();
             }
 
             if (_cells.Where(x => x.IsBusy).Count() == 0)
             {
                 CoinsEmptied?.Invoke();
-                return false;
             }
 
             return true;
