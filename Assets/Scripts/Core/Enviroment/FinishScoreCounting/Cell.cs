@@ -17,7 +17,7 @@ namespace Core.Enviroment.FinishScoreCounting
         public void Initialize(int scoreNumber)
         {
             _scoreNumber = scoreNumber;
-            _countText.text = $"{_scoreNumber + 1 * 100}";
+            _countText.text = $"{(_scoreNumber + 1) * 100}";
         }
         public void Select()
         {

@@ -33,7 +33,7 @@ namespace Core.Enviroment.FinishScoreCounting
 
             IEnumerable<Coin> orderedCoins = coins.OrderBy(x => x.transform.position.z);
 
-            _playerMoneyWad.FollowCamera(orderedCoins.Last().transform, _cameraPosition);
+            _playerMoneyWad.CameraFollowPoint.Follow(orderedCoins.Last().transform, _cameraPosition);
             spawnRows(orderedCoins.Last());
 
             StartCoroutine(moveCoins(orderedCoins));

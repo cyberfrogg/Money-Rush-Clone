@@ -1,4 +1,4 @@
-using Cinemachine;
+using Core.CameraUtils;
 using Core.Enviroment.Coins;
 using Core.Input;
 using Core.Pickupable;
@@ -17,11 +17,12 @@ namespace Core.PlayerMoneyWad
         public event Action Finished;
 
         public CoinsContainer CoinsContainer { get => _coinsContainer; }
+        public CameraFollowPoint CameraFollowPoint { get => _cameraFollowPoint; }
 
         [SerializeField] private AutoMover _autoMover;
         [SerializeField] private CoinsContainer _coinsContainer;
         [SerializeField] private MoneyWadCountDisplay _countDisplay;
-        [SerializeField] private CinemachineVirtualCamera _cineCamera;
+        [SerializeField] private CameraFollowPoint _cameraFollowPoint;
         [Space]
         [SerializeField] private float _speed = 1f;
         [SerializeField] private float _finishThreshold = 0.1f;
@@ -29,12 +30,15 @@ namespace Core.PlayerMoneyWad
         private LevelRails _rails;
         private IInput _input;
         private Pickupables _pickupables;
+
         private Vector3 _stopPosition;
         private bool _isStopped = true;
         private bool _isFinished = false;
 
         public void Initialize(LevelRails rails, IInput input, Pickupables pickuables)
         {
+            _cameraFollowPoint.Follow(transform);
+
             _rails = rails;
             _input = input;
             _pickupables = pickuables;
@@ -57,17 +61,6 @@ namespace Core.PlayerMoneyWad
                 _autoMover.StopMoving();
 
             _isStopped = true;
-        }
-        public void FollowCamera(Transform target)
-        {
-            _cineCamera.Follow = target;
-            _cineCamera.LookAt = target;
-        }
-        public void FollowCamera(Transform target, Vector3 newPosition)
-        {
-            _cineCamera.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = newPosition;
-            _cineCamera.Follow = target;
-            _cineCamera.LookAt = target;
         }
 
         private void Update()

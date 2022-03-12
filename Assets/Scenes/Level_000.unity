@@ -977,7 +977,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 391425172}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 64}
+  m_LocalPosition: {x: 0, y: 0, z: 66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1654836921}
@@ -1161,7 +1161,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 416892140}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.000017002221, z: 286.2499}
+  m_LocalPosition: {x: 0, y: -0.02, z: 286.2499}
   m_LocalScale: {x: 0.4, y: 1, z: 57.45}
   m_Children: []
   m_Father: {fileID: 899607471}
@@ -2106,7 +2106,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 870123405}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1393067185}
@@ -2158,9 +2158,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rowPrefab: {fileID: 2932336059558639911, guid: 5ef13732a99e7a64883cd2383441f938, type: 3}
-  _rowsCount: 100
+  _rowsCount: 50
   _yOffset: 0.5
-  _movementSpeed: 10
+  _movementSpeed: 5
   _cameraPosition: {x: 0, y: 8.68, z: -4.64}
 --- !u!1001 &921758553
 PrefabInstance:
